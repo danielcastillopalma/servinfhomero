@@ -1,0 +1,30 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">IP</th>
+            <th scope="col">Ubicacion</th>
+            <th scope="col">...</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let server of servers">
+        <tr>
+
+            <td>{{server["name"]}}</td>
+            <td>{{server["ip"]}}</td>
+            <td>{{server["location"]}}</td>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    !
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Editar</a></li>
+                    <li><a class="dropdown-item" href="#">Eliminar</a></li>
+                </ul>
+            </div>
+
+        </tr>
+    </tbody>
+</table>

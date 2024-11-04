@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <h2>Agregar Servidor</h2>
+    <form [formGroup]="serverForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre del Servidor</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+                placeholder="Ingrese el nombre del servidor" required>
+        </div>
+        <div class="mb-3">
+            <label for="ip" class="form-label">Dirección IP</label>
+            <input type="text" class="form-control" id="ip" formControlName="ip" placeholder="Ingrese la dirección IP"
+                required>
+            <div *ngIf="serverForm.get('ip')?.invalid && serverForm.get('ip')?.touched" class="text-danger">
+                Dirección IP no válida
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Ubicación</label>
+            <input type="text" class="form-control" id="location" formControlName="location"
+                placeholder="Ingrese la ubicación del servidor" required>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="serverForm.invalid">Agregar Servidor</button>
+    </form>
+</div>
