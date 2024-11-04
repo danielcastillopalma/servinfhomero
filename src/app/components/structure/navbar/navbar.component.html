@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">S.I.Homero</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
+                <a class="nav-link" href="#">Planes</a>
+                <div *ngIf="!usuario"><a class="nav-link" href="/login">Inicio de sesión</a></div>
+                <div *ngIf="usuario"><a class="nav-link" href="/servers">Mis Servidores</a></div>
+                <div *ngIf="usuario"><a class="nav-link" href='#' (click)="logOut()">Salir</a></div>
+                <div *ngIf="usuario"><a class="nav-link" href="/crud-user">Gestionar Usuarios</a></div>
+            </div>
+        </div>
+    </div>
+</nav>

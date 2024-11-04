@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <h2>Crear Usuario</h2>
+    <form (ngSubmit)="agregarUsuario()">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" [(ngModel)]="usuario.correo" name="correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="usuario.contrasena" name="contrasena" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirmarContrasena" class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="usuario.contrasena" name="confirmarContrasena"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+            <select class="form-select" [(ngModel)]="usuario.tipoUsuario" name="tipoUsuario" required>
+                <option value="" disabled selected>Selecciona un tipo de usuario</option>
+                <option value="administrador">Administrador</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="normal">Normal</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="organizacion" class="form-label">Organización</label>
+            <input type="text" class="form-control" [(ngModel)]="usuario.organizacion" name="organizacion" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="servidores" class="form-label">Seleccionar Servidores</label>
+            <select multiple class="form-select" [(ngModel)]="usuario.servidoresSeleccionados" name="servidores"
+                required>
+                <option *ngFor="let servidor of buscarServidores()" [value]="servidor">{{ servidor }}</option>
+            </select>
+            <div class="form-text">Mantén presionada la tecla Ctrl (o Cmd en Mac) para seleccionar varios servidores.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear Usuario</button>
+    </form>
+</div>

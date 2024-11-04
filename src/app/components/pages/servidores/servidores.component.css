@@ -1,0 +1,15 @@
+.icon-cell {
+    width: 1.5rem;
+    /* Ajusta el ancho al tamaño del icono */
+    text-align: center;
+    /* Centra el contenido en la celda */
+  
+    align-items: center;
+    justify-content: center;
+    /* Centra el ícono en la celda */
+}
+
+.small-icon {
+    font-size: 0.8rem;
+    /* Ajusta el tamaño del icono */
+}
