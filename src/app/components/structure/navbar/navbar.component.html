@@ -12,7 +12,34 @@
                 <div *ngIf="!usuario"><a class="nav-link" href="/login">Inicio de sesión</a></div>
                 <div *ngIf="usuario"><a class="nav-link" href="/servers">Mis Servidores</a></div>
                 <div *ngIf="usuario"><a class="nav-link" href='#' (click)="logOut()">Salir</a></div>
-                <div *ngIf="usuario"><a class="nav-link" href="/crud-user">Gestionar Usuarios</a></div>
+
+                <div *ngIf="admin">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Gestionar Usuarios
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/crud-user">Agregar Usuarios</a>
+                            <a class="dropdown-item" href="/user-list">Listar Usuarios</a>
+                        </div>
+                    </li>
+
+                </div>
+                <div *ngIf="admin">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servidores
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/crud-user">Agregar Servidor</a>
+                            <a class="dropdown-item" href="/user-list">Listar Servidores</a>
+                        </div>
+                    </li>
+
+                </div>
+
             </div>
         </div>
     </div>

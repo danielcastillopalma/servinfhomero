@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from "firebase/app";
-import { environment } from '../../environments/environment.development';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Usuario } from '../interfaces/usuario';
@@ -10,43 +8,39 @@ import { Usuario } from '../interfaces/usuario';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  app = initializeApp(environment.firebaseConfig);
-  public auth = getAuth(this.app);
-  constructor(private router: Router, private firestore: Firestore) {
-
-  }
+  constructor(
+    private router: Router,
+    private auth: Auth, // Inyecta Auth desde app.config.ts
+    private firestore: Firestore // Inyecta Firestore desde app.config.ts
+  ) { }
 
   login(email: string, password: string) {
-
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        this.router.navigateByUrl('/home')
+        this.router.navigateByUrl('/home');
       })
       .catch((error) => {
-        console.log("SESION no INICIADA")
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.error('Error al iniciar sesión:', error.message);
       });
   }
+
   logout() {
     signOut(this.auth).then(() => {
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/home');
     }).catch((error) => {
-      // An error happened.
+      console.error('Error al cerrar sesión:', error.message);
     });
   }
 
-
   async agregarUsuario(usuario: Usuario) {
-    const credential = await createUserWithEmailAndPassword(this.auth, usuario.correo, usuario.contrasena);
-
+    const credential = await createUserWithEmailAndPassword(this.auth, usuario.correo, usuario.contrasena!);
     const uid = credential.user?.uid;
+    const usuarioSinContrasena = { ...usuario };
+    delete usuarioSinContrasena.contrasena;
 
     await setDoc(doc(this.firestore, 'usuarios', uid), {
-      ...usuario,
+      ...usuarioSinContrasena,
       uid
     });
   }
-
 }

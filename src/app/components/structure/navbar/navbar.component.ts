@@ -1,33 +1,49 @@
-import { Component } from '@angular/core';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { onAuthStateChanged } from 'firebase/auth';
+import { Component, OnInit } from '@angular/core';
+import { Auth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { DatabaseService } from '../../../services/database.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   usuario: any;
-  constructor(private auth: AuthenticationService) {
+  public admin: boolean;
 
-    onAuthStateChanged(this.auth.auth, (user) => {
+  constructor(private auth: Auth, private router: Router, private db: DatabaseService) {
+    this.admin = false;
+  }
+
+  ngOnInit() {
+    onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        console.log("LOGUEADO")
+        console.log("LOGUEADO");
         this.usuario = user;
-        //this.perm.setAdmin(this.usuario.uuid);
-        // ...
+        this.db.getUserData(this.usuario.uid).then((res) => {
+         if(res!["tipoUsuario"]=="admin"){
+          this.admin = true;
+         }
+        })
+
+
       } else {
-        // User is signed out
-        // ...
+        this.usuario = null;
       }
     });
   }
+
   logOut() {
-    this.auth.logout();
+    signOut(this.auth).then(() => {
+      this.router.navigateByUrl('/home');
+    }).catch((error) => {
+      console.error('Error al cerrar sesión:', error.message);
+    });
   }
+
 
 }

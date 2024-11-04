@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { DatabaseService } from '../../../services/database.service';
 
 @Component({
   selector: 'app-crud-users',
@@ -17,25 +18,29 @@ export class CrudUsersComponent {
     nombre: '',
     correo: '',
     contrasena: '',
+
     tipoUsuario: 'normal',
     organizacion: '',
     servidoresSeleccionados: []
   };
+  contrasenan = '';
 
   servidores: string[] = ['Servidor 1', 'Servidor 2', 'Servidor 3', 'Servidor 4'];
   busqueda: string = '';
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthenticationService, private db: DatabaseService) {
+
+  }
 
   agregarUsuario() {
-    if (this.usuario.contrasena !== this.usuario.contrasena) {
+    if (this.usuario.contrasena !== this.contrasenan) {
       alert('Las contraseñas no coinciden.');
       return;
     }
     this.auth.agregarUsuario(this.usuario)
       .then(() => {
-        alert('Usuario creado correctamente');
         this.limpiarFormulario();
+        this.auth.logout();
       })
       .catch((error) => {
         console.error('Error al crear el usuario: ', error);

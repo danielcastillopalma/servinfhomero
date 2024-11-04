@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Organizacion</th>
+            <th scope="col">Servidores</th>
+            <th scope="col">...</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let user of usuarios">
+        <tr>
+
+            <td>{{user["nombre"]}}</td>
+            <td>{{user["correo"]}}</td>
+            <td>{{user["organizacion"]}}</td>
+            <td>{{user["servidoresSeleccionados"]}}</td>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    !
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Editar</a></li>
+                    <li><a class="dropdown-item" href="#">Eliminar</a></li>
+                </ul>
+            </div>
+
+        </tr>
+    </tbody>
+</table>
