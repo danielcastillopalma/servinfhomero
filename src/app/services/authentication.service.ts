@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, Auth } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, Auth, reload } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Usuario } from '../interfaces/usuario';
@@ -26,7 +26,9 @@ export class AuthenticationService {
 
   logout() {
     signOut(this.auth).then(() => {
+      location.reload();
       this.router.navigateByUrl('/home');
+      
     }).catch((error) => {
       console.error('Error al cerrar sesión:', error.message);
     });
