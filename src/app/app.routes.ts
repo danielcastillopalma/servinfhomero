@@ -6,13 +6,14 @@ import { CrudUsersComponent } from './components/pages/crud-users/crud-users.com
 import { UserListComponent } from './components/pages/user-list/user-list.component';
 import { CrudServersComponent } from './components/pages/crud-servers/crud-servers.component';
 import { ServerListComponent } from './components/pages/server-list/server-list.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'servers', component: ServidoresComponent },
-    { path: 'crud-user', component: CrudUsersComponent },
-    { path: 'user-list', component: UserListComponent },
-    { path: 'crud-server', component: CrudServersComponent },
-    { path: 'list-server', component: ServerListComponent }
+    { path: 'crud-user', component: CrudUsersComponent, canActivate: [authGuard] },
+    { path: 'user-list', component: UserListComponent, canActivate: [authGuard] },
+    { path: 'crud-server', component: CrudServersComponent, canActivate: [authGuard] },
+    { path: 'list-server', component: ServerListComponent, canActivate: [authGuard] }
 ];
