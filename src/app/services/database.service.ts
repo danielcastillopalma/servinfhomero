@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { doc, getDoc, setDoc, collection, query, getDocs } from '@angular/fire/firestore';
+import { doc, getDoc, setDoc, collection, query, getDocs, addDoc } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
+import { Server } from '../interfaces/server';
+import { Incidente } from '../interfaces/incidente';
 
 @Injectable({
   providedIn: 'root',
@@ -45,12 +47,25 @@ export class DatabaseService {
     await setDoc(serverRef, server);
   }
   async getAllServers() {
-    let servidores: any = [];
+    let servidores: Array<Server> = [];
+    let server: Server;
     const q = query(collection(this.firestore, 'servidores'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      servidores.push(doc.data());
+      let server: Server = { id: '', name: '', ip: '', ubi: '' };
+      let id: string = doc.id;
+      server.id = id;
+      server.name = doc.data()["name"];
+      server.ip = doc.data()["ip"]
+      server.ubi = doc.data()["location"]
+      servidores.push(server);
     });
     return servidores;
+  }
+
+
+  async agregarIncidente(incidente: Incidente, id: string) {
+    const incidentesRef = collection(this.firestore, 'incidentes', id, 'historico');
+    await addDoc(incidentesRef, incidente);
   }
 }

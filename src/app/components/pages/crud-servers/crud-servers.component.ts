@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatabaseService } from '../../../services/database.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-crud-servers',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './crud-servers.component.html',
   styleUrl: './crud-servers.component.css'
 })

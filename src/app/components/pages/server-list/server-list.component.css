@@ -1,0 +1,11 @@
+.icon-cell {
+    width: 1.5rem;
+    text-align: center;
+  
+    align-items: center;
+    justify-content: center;
+}
+
+.small-icon {
+    font-size: 0.8rem;
+}

@@ -17,10 +17,38 @@
             <td>Mi Máquina</td>
             <td>192.168.0.1</td>
             <td>LocalHost</td>
-            <td class="icon-cell"><a href=""><i class="bi bi-exclamation-circle small-icon"></i></a></td>
+            <td class="icon-cell"><a type="button" (click)="serverStatus()" id="liveToastBtn"><i
+                        class="bi bi-exclamation-circle small-icon"></i></a></td>
             <td class="icon-cell"><a href=""><i class="bi bi-file-earmark-bar-graph small-icon"></i></a></td>
             <td class="icon-cell"><i class="bi bi-arrow-clockwise small-icon"></i></td>
-            <td class="icon-cell"><i class="bi bi-list small-icon"></i></td>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    !
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Reportar Incidente</a></li>
+                </ul>
+            </div>
         </tr>
     </tbody>
 </table>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reportar Incidente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

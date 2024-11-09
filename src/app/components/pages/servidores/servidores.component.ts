@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './servidores.component.css'
 })
 export class ServidoresComponent {
+  serverStatus() {
+    console.log("ESTATUS ONLINE")
+  }
+  launchModal() {
+    const myModal = document.getElementById('myModal')
 
+    myModal!.addEventListener('shown.bs.modal', () => {
+      console.log("MODAL")
+    })
+  }
 }
