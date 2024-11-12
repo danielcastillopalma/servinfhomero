@@ -18,7 +18,7 @@
             <td>{{server["ubi"]}}</td>
             <td class="icon-cell"><a type="button" (click)="serverStatus(server['ip'])" id="liveToastBtn"><i
                         class="bi bi-exclamation-circle small-icon"></i></a></td>
-            <td class="icon-cell"><a href=""><i class="bi bi-file-earmark-bar-graph small-icon"></i></a></td>
+            <td class="icon-cell"><a (click)="generatePDF(server)"><i class="bi bi-file-earmark-bar-graph small-icon"></i></a></td>
             <td class="icon-cell"><i class="bi bi-arrow-clockwise small-icon"></i></td>
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -48,6 +48,10 @@
                         <h6>IP: {{server["ip"]}}</h6>
                         <h6>LOCATION: {{server["ubi"]}}</h6>
                         <h6>FECHA: {{date}}</h6>
+                        <div class="mb-3">
+                            <label for="txtTitleIncidente" class="form-label">Titulo del incidente</label>
+                            <input class="form-control" id="txtTitleIncidente"></input>
+                        </div>
                         <div class="mb-3">
                             <label for="txtAreaIncidente" class="form-label">Detalles del incidente</label>
                             <textarea class="form-control" id="txtAreaIncidente" rows="3"></textarea>

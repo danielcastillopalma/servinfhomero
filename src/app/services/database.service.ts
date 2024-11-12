@@ -19,7 +19,6 @@ export class DatabaseService {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log('Document data:', docSnap.data());
         return docSnap.data();
       } else {
         console.log('No such document!');
@@ -48,7 +47,6 @@ export class DatabaseService {
   }
   async getAllServers() {
     let servidores: Array<Server> = [];
-    let server: Server;
     const q = query(collection(this.firestore, 'servidores'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -65,7 +63,22 @@ export class DatabaseService {
 
 
   async agregarIncidente(incidente: Incidente, id: string) {
-    const incidentesRef = collection(this.firestore, 'incidentes', id, 'historico');
+    const incidentesRef = collection(this.firestore, 'incidentes', id, 'incidente');
     await addDoc(incidentesRef, incidente);
+  }
+
+  async obtenerIncidentes(server: Server) {
+    let incidentes: Array<Incidente> = [];
+    const q = query(collection(this.firestore, 'incidentes', server.id, 'incidente'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+
+      let incidente: Incidente = { content: '', date: new Date, server, title: '' };
+      incidente.content = doc.data()["content"];
+      incidente.date = doc.data()["date"]
+      incidentes.push(incidente);
+    })
+    return incidentes;
+
   }
 }

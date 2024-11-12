@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PdfService } from '../../../services/pdf.service';
 
 @Component({
   selector: 'app-servidores',
@@ -8,6 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './servidores.component.css'
 })
 export class ServidoresComponent {
+  constructor(private pdf: PdfService) {
+
+  }
   serverStatus() {
     console.log("ESTATUS ONLINE")
   }
@@ -17,5 +21,9 @@ export class ServidoresComponent {
     myModal!.addEventListener('shown.bs.modal', () => {
       console.log("MODAL")
     })
+  }
+
+  generatePDF() {
+    //this.pdf.generatePDF();
   }
 }

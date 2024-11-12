@@ -1,7 +1,8 @@
 import { Server } from "./server";
 
 export interface Incidente {
-    server:Server,
-    date:Date,
-    content:string
+    server: Server,
+    date: Date,
+    content: string
+    title: string
 }

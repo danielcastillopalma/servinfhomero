@@ -4,6 +4,7 @@ import { DatabaseService } from '../../../services/database.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Server } from '../../../interfaces/server';
 import { Incidente } from '../../../interfaces/incidente';
+import { PdfService } from '../../../services/pdf.service';
 
 
 @Component({
@@ -17,9 +18,9 @@ export class ServerListComponent {
   servers: Array<Server> = []
   date: Date = new Date;
   contentIncident: string = ""
-  constructor(private db: DatabaseService, private http: HttpClient) {
+  constructor(private db: DatabaseService, private http: HttpClient, private pdf: PdfService) {
     this.db.getAllServers().then((res) => {
-      console.log(res)
+
       this.servers = res
     })
 
@@ -29,9 +30,12 @@ export class ServerListComponent {
   serverStatus(server: any) {
     console.log("ESTATUS ONLINE")
   }
+  generatePDF(server: Server) {
+    this.pdf.generatePdf(server);
+  }
 
   guardarIncidente(server: Server, date: Date) {
-    let incidente: Incidente = { server: { id: '', ip: '', name: '', ubi: '' }, content: "", date: this.date };
+    let incidente: Incidente = { server: { id: '', ip: '', name: '', ubi: '', title: '' }, content: "", date: this.date };
     incidente.server = server;
     incidente.date = date;
     incidente.content = (document.getElementById("txtAreaIncidente") as HTMLInputElement).value;
