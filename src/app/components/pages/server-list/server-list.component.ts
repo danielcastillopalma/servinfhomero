@@ -35,7 +35,7 @@ export class ServerListComponent {
   }
 
   guardarIncidente(server: Server, date: Date) {
-    let incidente: Incidente = { server: { id: '', ip: '', name: '', ubi: '', title: '' }, content: "", date: this.date };
+    let incidente: Incidente = { title: '', server: { id: '', ip: '', name: '', ubi: '' }, content: "", date: this.date };
     incidente.server = server;
     incidente.date = date;
     incidente.content = (document.getElementById("txtAreaIncidente") as HTMLInputElement).value;

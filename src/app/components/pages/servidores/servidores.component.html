@@ -1,7 +1,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">IP</th>
             <th scope="col">Ubicación</th>
@@ -19,7 +18,8 @@
             <td>LocalHost</td>
             <td class="icon-cell"><a type="button" (click)="serverStatus()" id="liveToastBtn"><i
                         class="bi bi-exclamation-circle small-icon"></i></a></td>
-            <td class="icon-cell"><a (click)="generatePDF()"><i class="bi bi-file-earmark-bar-graph small-icon"></i></a></td>
+            <td class="icon-cell"><a (click)="generatePDF()"><i class="bi bi-file-earmark-bar-graph small-icon"></i></a>
+            </td>
             <td class="icon-cell"><i class="bi bi-arrow-clockwise small-icon"></i></td>
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -34,6 +34,7 @@
         </tr>
     </tbody>
 </table>
+<div *ngFor="let ser of servidores">{{servidores![ser]}}</div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { doc, getDoc, setDoc, collection, query, getDocs, addDoc } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
-import { Auth } from '@angular/fire/auth';
+import { Auth, User } from '@angular/fire/auth';
 import { Server } from '../interfaces/server';
 import { Incidente } from '../interfaces/incidente';
+import { Usuario } from '../interfaces/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +63,7 @@ export class DatabaseService {
   }
 
 
+
   async agregarIncidente(incidente: Incidente, id: string) {
     const incidentesRef = collection(this.firestore, 'incidentes', id, 'incidente');
     await addDoc(incidentesRef, incidente);
@@ -79,6 +81,23 @@ export class DatabaseService {
       incidentes.push(incidente);
     })
     return incidentes;
+
+  }
+
+  async getUserServers(user: User) {
+    let servidores = []
+    const docRef = doc(this.firestore, 'usuarios', user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      for (let ser in docSnap.data()['servidoresSeleccionados']) {
+        servidores.push(docSnap.data()['servidoresSeleccionados'][ser]);
+      }
+      return servidores
+    } else {
+      console.log('No such document!');
+      return null;
+    }
 
   }
 }

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../interfaces/usuario';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DatabaseService } from '../../../services/database.service';
+import { Server } from '../../../interfaces/server';
 
 @Component({
   selector: 'app-crud-users',
@@ -13,7 +14,7 @@ import { DatabaseService } from '../../../services/database.service';
   templateUrl: './crud-users.component.html',
   styleUrl: './crud-users.component.css'
 })
-export class CrudUsersComponent {
+export class CrudUsersComponent implements OnInit {
   usuario: Usuario = {
     nombre: '',
     correo: '',
@@ -24,8 +25,11 @@ export class CrudUsersComponent {
     servidoresSeleccionados: []
   };
   contrasenan = '';
-
-  servidores: string[] = ['Servidor 1', 'Servidor 2', 'Servidor 3', 'Servidor 4'];
+  ngOnInit(): void {
+    this.obtenerServidores();
+  }
+  servidores: Server[] = [];
+  serverSelect: Server[] = []
   busqueda: string = '';
 
   constructor(private auth: AuthenticationService, private db: DatabaseService) {
@@ -37,6 +41,8 @@ export class CrudUsersComponent {
       alert('Las contraseñas no coinciden.');
       return;
     }
+    this.usuario.servidoresSeleccionados=this.serverSelect
+    console.log(this.serverSelect)
     this.auth.agregarUsuario(this.usuario)
       .then(() => {
         this.limpiarFormulario();
@@ -58,10 +64,12 @@ export class CrudUsersComponent {
       servidoresSeleccionados: []
     };
   }
-
-  buscarServidores() {
-    return this.servidores.filter(servidor =>
-      servidor.toLowerCase().includes(this.busqueda.toLowerCase())
-    );
+  async obtenerServidores() {
+    this.db.getAllServers().then((res) => {
+      for (let ser in res) {
+        this.servidores.push(res[ser])
+      }
+    })
   }
+
 }

@@ -34,9 +34,9 @@
 
         <div class="mb-3">
             <label for="servidores" class="form-label">Seleccionar Servidores</label>
-            <select multiple class="form-select" [(ngModel)]="usuario.servidoresSeleccionados" name="servidores"
+            <select multiple class="form-select" [(ngModel)]="serverSelect" name="servidores"
                 required>
-                <option *ngFor="let servidor of buscarServidores()" [value]="servidor">{{ servidor }}</option>
+                <option *ngFor="let servidor of servidores" [value]="servidor">{{ servidor['name'] }}</option>
             </select>
             <div class="form-text">Mantén presionada la tecla Ctrl (o Cmd en Mac) para seleccionar varios servidores.
             </div>
