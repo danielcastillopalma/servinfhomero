@@ -3,6 +3,7 @@ import { PdfService } from '../../../services/pdf.service';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { DatabaseService } from '../../../services/database.service';
 import { CommonModule, NgForOf } from '@angular/common';
+import { Server } from '../../../interfaces/server';
 
 @Component({
   selector: 'app-servidores',
@@ -12,7 +13,7 @@ import { CommonModule, NgForOf } from '@angular/common';
   styleUrl: './servidores.component.css'
 })
 export class ServidoresComponent {
-  servidores: string[] | null = []
+  servidores: Server[] | null = []
   constructor(private pdf: PdfService, private auth: Auth, private db: DatabaseService) {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
